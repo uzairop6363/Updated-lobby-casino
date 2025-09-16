@@ -1,61 +1,130 @@
-import React from "react";
-import "./App.css";
-import { FaGift, FaCoins, FaStar, FaUniversity, FaChartLine, FaEnvelope, FaCalendarAlt, FaBullhorn, FaMoneyBillWave } from "react-icons/fa";
-
-// Sample games list with logos (we'll use emoji placeholders for now)
-const games = [
-  { name: "Dragon Tiger", logo: "🐉🐅" },
-  { name: "Baccarat", logo: "🃏" },
-  { name: "Andar Bahar", logo: "🎲" },
-  { name: "Roulette", logo: "🎡" },
-  { name: "Teen Patti", logo: "♠️♥️" },
-  { name: "Poker", logo: "♣️♦️" },
-  { name: "Slots", logo: "🍒" },
-  { name: "Blackjack", logo: "♠️" },
-];
-
-const bottomOptions = [
-  { name: "Free Bonus", icon: <FaGift /> },
-  { name: "Withdraw", icon: <FaCoins /> },
-  { name: "VIP", icon: <FaStar /> },
-  { name: "Bank", icon: <FaUniversity /> },
-  { name: "Ranking", icon: <FaChartLine /> },
-  { name: "E-Mail", icon: <FaEnvelope /> },
-  { name: "Event", icon: <FaCalendarAlt /> },
-  { name: "Promote", icon: <FaBullhorn /> },
-  { name: "Deposit", icon: <FaMoneyBillWave /> },
-];
-
-function App() {
-  return (
-    <div className="App">
-      {/* Top Bar */}
-      <div className="top-bar">
-        <div className="top-profile">Guest Profile</div>
-        <button className="buy-coins">Buy Coins</button>
-      </div>
-
-      {/* Scrollable Content */}
-      <div className="content">
-        {games.map((game, idx) => (
-          <div key={idx} className="game-item">
-            <div className="game-logo">{game.logo}</div>
-            <div className="game-name">{game.name}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="bottom-bar">
-        {bottomOptions.map((opt, idx) => (
-          <div key={idx} className="bottom-option">
-            <div className="icon">{opt.icon}</div>
-            <span>{opt.name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+/* General Styles */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #0f0f0f;
+  color: #fff;
 }
 
-export default App;
+/* Top Bar */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #1a1a1a;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  border-bottom: 2px solid gold;
+}
+
+.top-profile {
+  background-color: #222;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid gold;
+}
+
+.buy-coins {
+  background: linear-gradient(90deg, #ffd700, #ffec00);
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(255,215,0,0.6);
+  transition: transform 0.2s;
+}
+
+.buy-coins:hover {
+  transform: scale(1.1);
+}
+
+/* Content Section */
+.content {
+  padding-top: 80px;
+  padding-bottom: 110px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Game Cards */
+.game-item {
+  background: linear-gradient(145deg, #222, #111);
+  border: 2px solid gold;
+  border-radius: 15px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(255,215,0,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.game-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255,215,0,0.8);
+}
+
+.game-logo {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.game-name {
+  font-weight: bold;
+  text-align: center;
+  color: gold;
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background-color: #1a1a1a;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+  border-top: 2px solid gold;
+  padding: 10px 0;
+}
+
+.bottom-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #222;
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: 1px solid gold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.bottom-option:hover {
+  transform: scale(1.1);
+  background-color: #333;
+}
+
+.bottom-option .icon {
+  font-size: 22px;
+  margin-bottom: 5px;
+  color: gold;
+}
