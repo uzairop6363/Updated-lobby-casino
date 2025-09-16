@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './App.css';
 
 function App() {
+  const contentRef = useRef(null);
+
   const bottomOptions = [
     { icon: "💸", label: "Withdraw" },
     { icon: "📢", label: "Promote" },
@@ -12,6 +14,19 @@ function App() {
     { icon: "🎉", label: "Events" },
   ];
 
+  const games = Array.from({ length: 24 }, (_, i) => ({
+    logo: "🎮",
+    name: `Game ${i + 1}`,
+  }));
+
+  const scrollLeft = () => {
+    contentRef.current.scrollBy({ left: -500, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    contentRef.current.scrollBy({ left: 500, behavior: 'smooth' });
+  };
+
   return (
     <div>
       {/* Top Bar */}
@@ -20,32 +35,18 @@ function App() {
         <button className="buy-coins">Buy Coins</button>
       </div>
 
-      {/* Main Content */}
-      <div className="content">
-        <div className="game-item">
-          <div className="game-logo">🎮</div>
-          <div className="game-name">Game 1</div>
+      {/* Horizontal Scrollable Game Content with Arrows */}
+      <div className="content-wrapper">
+        <div className="arrow arrow-left" onClick={scrollLeft}>◀</div>
+        <div className="content" ref={contentRef}>
+          {games.map((game, index) => (
+            <div key={index} className="game-item">
+              <div className="game-logo">{game.logo}</div>
+              <div className="game-name">{game.name}</div>
+            </div>
+          ))}
         </div>
-        <div className="game-item">
-          <div className="game-logo">🕹️</div>
-          <div className="game-name">Game 2</div>
-        </div>
-        <div className="game-item">
-          <div className="game-logo">⚡</div>
-          <div className="game-name">Game 3</div>
-        </div>
-        <div className="game-item">
-          <div className="game-logo">🎲</div>
-          <div className="game-name">Game 4</div>
-        </div>
-        <div className="game-item">
-          <div className="game-logo">🎯</div>
-          <div className="game-name">Game 5</div>
-        </div>
-        <div className="game-item">
-          <div className="game-logo">🎰</div>
-          <div className="game-name">Game 6</div>
-        </div>
+        <div className="arrow arrow-right" onClick={scrollRight}>▶</div>
       </div>
 
       {/* Bottom Bar */}
