@@ -49,14 +49,32 @@ body {
   box-shadow: 0 0 20px rgba(255,215,0,1);
 }
 
-/* Main Content */
-.content {
+/* Horizontal Scroll Container */
+.content-wrapper {
+  position: relative;
   padding-top: 80px;
-  padding-bottom: 130px; /* leave space for bottom bar */
+  padding-bottom: 130px;
+}
+
+.content {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Hide scrollbar visually but allow scroll */
+.content::-webkit-scrollbar {
+  height: 8px;
+}
+.content::-webkit-scrollbar-thumb {
+  background-color: gold;
+  border-radius: 4px;
+}
+.content::-webkit-scrollbar-track {
+  background: #111;
 }
 
 /* Game Cards */
@@ -64,31 +82,68 @@ body {
   background: linear-gradient(145deg, #222, #111);
   border: 2px solid gold;
   border-radius: 15px;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 15px rgba(255,215,0,0.5);
+  box-shadow: 0 0 10px rgba(255,215,0,0.5);
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .game-item:hover {
-  transform: scale(1.05);
+  transform: scale(1.1) rotateY(5deg);
   box-shadow: 0 0 25px rgba(255,215,0,0.8);
+  animation: slot-hover 0.5s ease-in-out;
+}
+
+@keyframes slot-hover {
+  0% { transform: scale(1.05) rotateY(0deg); }
+  50% { transform: scale(1.12) rotateY(10deg); }
+  100% { transform: scale(1.1) rotateY(5deg); }
 }
 
 .game-logo {
-  font-size: 40px;
-  margin-bottom: 10px;
+  font-size: 30px;
+  margin-bottom: 5px;
 }
 
 .game-name {
   font-weight: bold;
   text-align: center;
   color: gold;
+  font-size: 12px;
+}
+
+/* Navigation Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  color: gold;
+  cursor: pointer;
+  user-select: none;
+  z-index: 100;
+  padding: 5px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.arrow:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.arrow-left {
+  left: 5px;
+}
+
+.arrow-right {
+  right: 5px;
 }
 
 /* Bottom Bar - Casino Slot Style */
@@ -136,4 +191,4 @@ body {
   font-size: 20px;
   margin-bottom: 3px;
   color: gold;
-}
+  }
