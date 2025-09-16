@@ -2,6 +2,16 @@ import React from 'react';
 import './App.css';
 
 function App() {
+  const bottomOptions = [
+    { icon: "💸", label: "Withdraw" },
+    { icon: "📢", label: "Promote" },
+    { icon: "🏆", label: "Rankings" },
+    { icon: "✉️", label: "E-Mail" },
+    { icon: "🏦", label: "Bank" },
+    { icon: "💎", label: "VIP" },
+    { icon: "🎉", label: "Events" },
+  ];
+
   return (
     <div>
       {/* Top Bar */}
@@ -28,26 +38,24 @@ function App() {
           <div className="game-logo">🎲</div>
           <div className="game-name">Game 4</div>
         </div>
+        <div className="game-item">
+          <div className="game-logo">🎯</div>
+          <div className="game-name">Game 5</div>
+        </div>
+        <div className="game-item">
+          <div className="game-logo">🎰</div>
+          <div className="game-name">Game 6</div>
+        </div>
       </div>
 
       {/* Bottom Bar */}
       <div className="bottom-bar">
-        <div className="bottom-option">
-          <div className="icon">🏠</div>
-          Home
-        </div>
-        <div className="bottom-option">
-          <div className="icon">🎮</div>
-          Games
-        </div>
-        <div className="bottom-option">
-          <div className="icon">💰</div>
-          Coins
-        </div>
-        <div className="bottom-option">
-          <div className="icon">⚙️</div>
-          Settings
-        </div>
+        {bottomOptions.map((option, index) => (
+          <div key={index} className="bottom-option">
+            <div className="icon">{option.icon}</div>
+            {option.label}
+          </div>
+        ))}
       </div>
     </div>
   );
