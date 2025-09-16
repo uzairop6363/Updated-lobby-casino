@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import './App.css';
-import dragonTiger from './assets/dragon-vs-tiger.png'; // Make sure this path is correct
+import dragonTiger from './assets/dragon-vs-tiger.png'; // real image
 
 function App() {
   const contentRef = useRef(null);
