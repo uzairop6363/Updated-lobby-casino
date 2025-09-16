@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import './App.css';
+import dragonTiger from './assets/dragon-vs-tiger.png'; // real image
 
 function App() {
   const contentRef = useRef(null);
@@ -14,10 +15,20 @@ function App() {
     { icon: "🎉", label: "Events" },
   ];
 
-  const games = Array.from({ length: 24 }, (_, i) => ({
-    logo: "🎮",
-    name: `Game ${i + 1}`,
-  }));
+  const games = [
+    { logo: dragonTiger, name: "Dragon vs Tiger" },
+    { logo: "🕹️", name: "Game 2" },
+    { logo: "⚡", name: "Game 3" },
+    { logo: "🎲", name: "Game 4" },
+    { logo: "🎯", name: "Game 5" },
+    { logo: "🎰", name: "Game 6" },
+    { logo: "🎮", name: "Game 7" },
+    { logo: "🕹️", name: "Game 8" },
+    { logo: "⚡", name: "Game 9" },
+    { logo: "🎲", name: "Game 10" },
+    { logo: "🎯", name: "Game 11" },
+    { logo: "🎰", name: "Game 12" },
+  ];
 
   const scrollLeft = () => {
     contentRef.current.scrollBy({ left: -500, behavior: 'smooth' });
@@ -41,7 +52,11 @@ function App() {
         <div className="content" ref={contentRef}>
           {games.map((game, index) => (
             <div key={index} className="game-item">
-              <div className="game-logo">{game.logo}</div>
+              {typeof game.logo === 'string' ? (
+                <div className="game-logo">{game.logo}</div>
+              ) : (
+                <img src={game.logo} alt={game.name} className="game-logo" />
+              )}
               <div className="game-name">{game.name}</div>
             </div>
           ))}
