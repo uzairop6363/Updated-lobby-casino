@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 import './App.css';
-import dragonTiger from './assets/dragon-vs-tiger.png'; // real image
+import dragonTiger from './assets/dragon-vs-tiger.png'; // Make sure this path is correct
 
 function App() {
   const contentRef = useRef(null);
 
+  // Bottom bar options
   const bottomOptions = [
     { icon: "💸", label: "Withdraw" },
     { icon: "📢", label: "Promote" },
@@ -15,6 +16,7 @@ function App() {
     { icon: "🎉", label: "Events" },
   ];
 
+  // Games array: Game 1 with real image, rest with emojis
   const games = [
     { logo: dragonTiger, name: "Dragon vs Tiger" },
     { logo: "🕹️", name: "Game 2" },
@@ -30,12 +32,17 @@ function App() {
     { logo: "🎰", name: "Game 12" },
   ];
 
+  // Scroll functions for arrows
   const scrollLeft = () => {
-    contentRef.current.scrollBy({ left: -500, behavior: 'smooth' });
+    if (contentRef.current) {
+      contentRef.current.scrollBy({ left: -500, behavior: 'smooth' });
+    }
   };
 
   const scrollRight = () => {
-    contentRef.current.scrollBy({ left: 500, behavior: 'smooth' });
+    if (contentRef.current) {
+      contentRef.current.scrollBy({ left: 500, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -46,7 +53,7 @@ function App() {
         <button className="buy-coins">Buy Coins</button>
       </div>
 
-      {/* Horizontal Scrollable Game Content with Arrows */}
+      {/* Horizontal Scrollable Games */}
       <div className="content-wrapper">
         <div className="arrow arrow-left" onClick={scrollLeft}>◀</div>
         <div className="content" ref={contentRef}>
