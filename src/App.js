@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import './App.css';
-import dragonTiger from './assets/dragon-vs-tiger.png'; // real image
 
 function App() {
   const contentRef = useRef(null);
@@ -16,20 +15,20 @@ function App() {
     { icon: "🎉", label: "Events" },
   ];
 
-  // Games array: Game 1 with real image, rest with emojis
+  // Games array: Game 1 with public image, rest with emojis
   const games = [
-    { logo: dragonTiger, name: "Dragon vs Tiger" },
-    { logo: "🕹️", name: "Game 2" },
-    { logo: "⚡", name: "Game 3" },
-    { logo: "🎲", name: "Game 4" },
-    { logo: "🎯", name: "Game 5" },
-    { logo: "🎰", name: "Game 6" },
-    { logo: "🎮", name: "Game 7" },
-    { logo: "🕹️", name: "Game 8" },
-    { logo: "⚡", name: "Game 9" },
-    { logo: "🎲", name: "Game 10" },
-    { logo: "🎯", name: "Game 11" },
-    { logo: "🎰", name: "Game 12" },
+    { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger", isImage: true },
+    { logo: "🕹️", name: "Game 2", isImage: false },
+    { logo: "⚡", name: "Game 3", isImage: false },
+    { logo: "🎲", name: "Game 4", isImage: false },
+    { logo: "🎯", name: "Game 5", isImage: false },
+    { logo: "🎰", name: "Game 6", isImage: false },
+    { logo: "🎮", name: "Game 7", isImage: false },
+    { logo: "🕹️", name: "Game 8", isImage: false },
+    { logo: "⚡", name: "Game 9", isImage: false },
+    { logo: "🎲", name: "Game 10", isImage: false },
+    { logo: "🎯", name: "Game 11", isImage: false },
+    { logo: "🎰", name: "Game 12", isImage: false },
   ];
 
   // Scroll functions for arrows
@@ -59,10 +58,10 @@ function App() {
         <div className="content" ref={contentRef}>
           {games.map((game, index) => (
             <div key={index} className="game-item">
-              {typeof game.logo === 'string' ? (
-                <div className="game-logo">{game.logo}</div>
-              ) : (
+              {game.isImage ? (
                 <img src={game.logo} alt={game.name} className="game-logo" />
+              ) : (
+                <div className="game-logo">{game.logo}</div>
               )}
               <div className="game-name">{game.name}</div>
             </div>
