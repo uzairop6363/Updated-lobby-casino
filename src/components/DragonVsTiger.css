@@ -61,6 +61,7 @@
   margin: 10px 0;
   gap: 8px;
 }
+
 .chip-btn {
   padding: 8px 15px;
   border-radius: 8px;
@@ -71,10 +72,12 @@
   font-weight: bold;
   transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .chip-btn:hover {
   transform: scale(1.1);
   box-shadow: 0 0 10px #ffd700;
 }
+
 .chip-btn.selected {
   background: gold;
   color: #111;
@@ -150,6 +153,7 @@
   transition: transform 0.2s, box-shadow 0.2s;
   margin-top: 15px;
 }
+
 .dvt-btn-start:hover {
   transform: scale(1.1);
   box-shadow: 0 0 20px #ffd700;
