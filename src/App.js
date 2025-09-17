@@ -26,7 +26,7 @@ function App() {
 
   // 🕹️ Games array
   const games = [
-    { logo: "/tiger-vs-dragon.png", name: "Dragon vs Tiger" },
+    { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger" },
     { logo: "/zoo-roulette.png", name: "Zoo Roulette" },
     { logo: "/car-roulette.png", name: "Car Roulette" },
     { logo: "/fortune-gems.png", name: "Fortune Gems" },
