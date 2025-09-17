@@ -69,13 +69,13 @@ body {
   display: none;
 }
 
-/* Game Cards */
+/* Game Cards (Square Boxes) */
 .game-item {
   background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
   border: 2px solid #6a11cb;
   border-radius: 15px;
-  width: 200px;   /* Bigger box */
-  height: 200px;  /* Bigger box */
+  width: 180px;   /* Square */
+  height: 180px;  /* Square */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,8 +91,8 @@ body {
 }
 
 .game-logo {
-  width: 120px;   /* Bigger image */
-  height: 120px;  /* Bigger image */
+  width: 100px;   /* Fit inside box */
+  height: 100px;
   object-fit: contain;
   margin-bottom: 10px;
 }
@@ -101,7 +101,7 @@ body {
   font-weight: bold;
   text-align: center;
   color: #ff4b4b;
-  font-size: 18px; /* readable */
+  font-size: 16px;
 }
 
 /* Arrows */
@@ -169,4 +169,4 @@ body {
   font-size: 22px;
   margin-bottom: 5px;
   color: #ff4b4b;
-}
+    }
