@@ -6,11 +6,11 @@ function DragonVsTiger({ onClose }) {
     <div className="dvt-overlay">
       <div className="dvt-container">
         <button className="dvt-close" onClick={onClose}>X</button>
-        {/* Game Image */}
+        {/* Fullscreen Portrait Image */}
         <img
           src="/dragon-tiger-placeholder.png"
           alt="Dragon vs Tiger"
-          style={{ width: "100%", height: "auto", borderRadius: "12px" }}
+          className="dvt-full-image"
         />
       </div>
     </div>
