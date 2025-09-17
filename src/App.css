@@ -69,13 +69,13 @@ body {
   display: none;
 }
 
-/* Game Cards (Square Boxes) */
+/* Game Cards - Always Square */
 .game-item {
   background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
   border: 2px solid #6a11cb;
   border-radius: 15px;
-  width: 180px;   /* Square */
-  height: 180px;  /* Square */
+  width: 180px;
+  aspect-ratio: 1 / 1;   /* ✅ Perfect square */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,6 +83,7 @@ body {
   box-shadow: 0 0 20px rgba(106,17,203,0.6);
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  flex-shrink: 0;  /* Prevent shrinking */
 }
 
 .game-item:hover {
@@ -91,7 +92,7 @@ body {
 }
 
 .game-logo {
-  width: 100px;   /* Fit inside box */
+  width: 100px;
   height: 100px;
   object-fit: contain;
   margin-bottom: 10px;
@@ -169,4 +170,4 @@ body {
   font-size: 22px;
   margin-bottom: 5px;
   color: #ff4b4b;
-    }
+  }
