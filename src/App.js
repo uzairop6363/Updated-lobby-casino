@@ -8,16 +8,18 @@ function App() {
   // ✅ User state
   const [user, setUser] = useState(null);
 
+  // 🎲 Balance & Guest Info
+  const [balance, setBalance] = useState(200);
+  const [guestName, setGuestName] = useState("");
+  const [guestId, setGuestId] = useState("");
+
+  // Check if user is logged in
   useEffect(() => {
     const savedUser = localStorage.getItem("loggedInUser");
     if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
-  // 🎲 Balance & Guest Info (only if logged in)
-  const [balance, setBalance] = useState(200);
-  const [guestName, setGuestName] = useState("");
-  const [guestId, setGuestId] = useState("");
-
+  // Initialize balance and guest info after login
   useEffect(() => {
     if (!user) return;
 
@@ -33,8 +35,8 @@ function App() {
     let storedId = localStorage.getItem("guestId");
 
     if (!storedName || !storedId) {
-      const randomNum = Math.floor(1000000 + Math.random() * 9000000); // 7 digits
-      const randomId = Math.floor(10000000 + Math.random() * 90000000); // 8 digits
+      const randomNum = Math.floor(1000000 + Math.random() * 9000000);
+      const randomId = Math.floor(10000000 + Math.random() * 90000000);
       storedName = `Guest${randomNum}`;
       storedId = `ID: ${randomId}`;
       localStorage.setItem("guestName", storedName);
