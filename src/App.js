@@ -4,7 +4,7 @@ import "./App.css";
 function App() {
   const contentRef = useRef(null);
 
-  // 🟢 Balance State (first time = 200 coins)
+  // 🟢 Balance State (fixed 200 for now)
   const [balance, setBalance] = useState(200);
 
   useEffect(() => {
@@ -17,16 +17,9 @@ function App() {
     }
   }, []);
 
-  // Balance update function (for win/lose)
-  const updateBalance = (amount) => {
-    const newBalance = balance + amount;
-    setBalance(newBalance);
-    localStorage.setItem("userBalance", newBalance.toString());
-  };
-
   // 🕹️ Games array
   const games = [
-    { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger" },
+    { logo: "/tiger-vs-dragon.png", name: "Dragon vs Tiger" },
     { logo: "/zoo-roulette.png", name: "Zoo Roulette" },
     { logo: "/car-roulette.png", name: "Car Roulette" },
     { logo: "/fortune-gems.png", name: "Fortune Gems" },
@@ -46,10 +39,10 @@ function App() {
       <div className="top-bar">
         <div className="top-profile">Profile</div>
 
-        {/* 💸 Balance Box */}
-        <div className="balance-box">💸 {balance}</div>
-
-        <button className="buy-coins">Buy Coins</button>
+        <div className="coins-section">
+          <button className="buy-coins">Buy Coins</button>
+          <div className="balance-box">💸 {balance}</div>
+        </div>
       </div>
 
       {/* Horizontal Games */}
@@ -57,19 +50,8 @@ function App() {
         <div className="content" ref={contentRef}>
           {games.map((game, index) => (
             <div className="game-item" key={index}>
-              {/* Agar image hai to show kare */}
-              {game.logo.includes(".png") ? (
-                <img src={game.logo} alt={game.name} className="game-icon" />
-              ) : (
-                <div className="game-logo">{game.logo}</div>
-              )}
+              <img src={game.logo} alt={game.name} className="game-icon" />
               <div className="game-name">{game.name}</div>
-
-              {/* Demo win/lose buttons */}
-              <div className="game-actions">
-                <button onClick={() => updateBalance(+50)}>Win +50</button>
-                <button onClick={() => updateBalance(-50)}>Lose -50</button>
-              </div>
             </div>
           ))}
         </div>
