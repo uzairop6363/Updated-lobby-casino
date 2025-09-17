@@ -4,7 +4,6 @@ import './App.css';
 function App() {
   const contentRef = useRef(null);
 
-  // Bottom bar options
   const bottomOptions = [
     { icon: "💸", label: "Withdraw" },
     { icon: "📢", label: "Promote" },
@@ -15,23 +14,21 @@ function App() {
     { icon: "🎉", label: "Events" },
   ];
 
-  // Games array: Game 1 with public image, rest with emojis
   const games = [
     { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger", isImage: true },
-    { logo: "🕹️", name: "Game 2", isImage: false },
-    { logo: "⚡", name: "Game 3", isImage: false },
-    { logo: "🎲", name: "Game 4", isImage: false },
-    { logo: "🎯", name: "Game 5", isImage: false },
-    { logo: "🎰", name: "Game 6", isImage: false },
-    { logo: "🎮", name: "Game 7", isImage: false },
-    { logo: "🕹️", name: "Game 8", isImage: false },
-    { logo: "⚡", name: "Game 9", isImage: false },
-    { logo: "🎲", name: "Game 10", isImage: false },
-    { logo: "🎯", name: "Game 11", isImage: false },
-    { logo: "🎰", name: "Game 12", isImage: false },
+    { logo: "/zoo-roulette.png", name: "Zoo Roulette", isImage: true },
+    { logo: "/car-roulette.png", name: "Car Roulette", isImage: true },
+    { logo: "/fortune-gems.png", name: "Fortune Gems", isImage: true },
+    { logo: "/9-coins.png", name: "9 Coins", isImage: true },
+    { logo: "/rocket.png", name: "Rocket", isImage: true },
+    { logo: "/7-thunder.png", name: "7 Thunder", isImage: true },
+    { logo: "/777-classic.png", name: "777 Classic", isImage: true },
+    { logo: "/baccarat.png", name: "Baccarat", isImage: true },
+    { logo: "/up-down.png", name: "UP Down", isImage: true },
+    { logo: "/mines.png", name: "Mines", isImage: true },
+    { logo: "/rummy.png", name: "Rummy", isImage: true },
   ];
 
-  // Scroll functions for arrows
   const scrollLeft = () => {
     if (contentRef.current) {
       contentRef.current.scrollBy({ left: -500, behavior: 'smooth' });
