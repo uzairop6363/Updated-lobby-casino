@@ -1,53 +1,21 @@
-import React, { useRef, useState, useEffect } from "react";
-import "./App.css";
-import LoginCreateForm from "./LoginCreateForm";
+import React, { useRef } from 'react';
+import './App.css';
 
 function App() {
   const contentRef = useRef(null);
 
-  // ✅ User state
-  const [user, setUser] = useState(null);
+  // Bottom bar options
+  const bottomOptions = [
+    { icon: "💸", label: "Withdraw" },
+    { icon: "📢", label: "Promote" },
+    { icon: "🏆", label: "Rankings" },
+    { icon: "📧", label: "E-Mail" },
+    { icon: "🏦", label: "Bank" },
+    { icon: "👑", label: "VIP" },
+    { icon: "🎉", label: "Events" },
+  ];
 
-  // 🎲 Balance & Guest Info
-  const [balance, setBalance] = useState(200);
-  const [guestName, setGuestName] = useState("");
-  const [guestId, setGuestId] = useState("");
-
-  // Check if user is logged in
-  useEffect(() => {
-    const savedUser = localStorage.getItem("loggedInUser");
-    if (savedUser) setUser(JSON.parse(savedUser));
-  }, []);
-
-  // Initialize balance and guest info after login
-  useEffect(() => {
-    if (!user) return;
-
-    const savedBalance = localStorage.getItem("userBalance");
-    if (savedBalance) {
-      setBalance(parseInt(savedBalance, 10));
-    } else {
-      localStorage.setItem("userBalance", "200");
-      setBalance(200);
-    }
-
-    let storedName = localStorage.getItem("guestName");
-    let storedId = localStorage.getItem("guestId");
-
-    if (!storedName || !storedId) {
-      const randomNum = Math.floor(1000000 + Math.random() * 9000000); // 7 digits
-      const randomId = Math.floor(10000000 + Math.random() * 90000000); // 8 digits
-      storedName = `Guest${randomNum}`;
-      storedId = `ID: ${randomId}`;
-      localStorage.setItem("guestName", storedName);
-      localStorage.setItem("guestId", storedId);
-    }
-
-    setGuestName(storedName);
-    setGuestId(storedId);
-  }, [user]);
-
-  // 🎮 Games array
+  // Games with real icons (public folder)
   const games = [
     { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger" },
     { logo: "/zoo-roulette.png", name: "Zoo Roulette" },
@@ -63,49 +31,52 @@ function App() {
     { logo: "/rummy.png", name: "Rummy" },
   ];
 
-  // 🔑 Show login if not logged in
-  if (!user) {
-    return <LoginCreateForm setUser={setUser} />;
-  }
+  // Scroll arrows
+  const scrollLeft = () => {
+    if (contentRef.current) {
+      contentRef.current.scrollBy({ left: -500, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (contentRef.current) {
+      contentRef.current.scrollBy({ left: 500, behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="App">
       {/* Top Bar */}
       <div className="top-bar">
-        <div className="user-info">
-          <img src="/avatar.png" alt="Avatar" className="avatar" />
-          <div className="user-text">
-            <div className="guest-name">{guestName}</div>
-            <div className="guest-id">{guestId}</div>
-          </div>
-        </div>
-        <div className="coins-section">
-          <div className="balance-box">💸 {balance}</div>
-          <button className="buy-coins">Buy Coins</button>
-        </div>
+        <div className="top-profile">My Profile</div>
+        <button className="buy-coins">Buy Coins</button>
       </div>
 
-      {/* Games */}
+      {/* Horizontal Scrollable Games */}
       <div className="content-wrapper">
+        <div className="arrow arrow-left" onClick={scrollLeft}>◀️</div>
         <div className="content" ref={contentRef}>
           {games.map((game, index) => (
             <div className="game-item" key={index}>
-              <img src={game.logo} alt={game.name} className="game-icon" />
+              <img src={game.logo} alt={game.name} className="game-logo" />
               <div className="game-name">{game.name}</div>
             </div>
           ))}
         </div>
+        <div className="arrow arrow-right" onClick={scrollRight}>▶️</div>
       </div>
 
       {/* Bottom Bar */}
       <div className="bottom-bar">
-        <div className="bottom-option">💸 Withdraw</div>
-        <div className="bottom-option">📢 Promote</div>
-        <div className="bottom-option">🏆 Rankings</div>
-        <div className="bottom-option">📧 E-Mail</div>
-        <div className="bottom-option">🏦 Bank</div>
-        <div className="bottom-option">💎 VIP</div>
-        <div className="bottom-option">🎉 Events</div>
+        {bottomOptions.map((option, index) => (
+          <div
+            className={`bottom-option ${option.label === "Withdraw" ? "withdraw" : "small"}`}
+            key={index}
+          >
+            <span className="icon">{option.icon}</span>
+            <span>{option.label}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
