@@ -1,88 +1,111 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./App.css";
+import LoginCreateForm from "./LoginCreateForm";
 
 function App() {
   const contentRef = useRef(null);
 
-  const chips = [100, 200, 500, 1000, 3000, 5000, 10000, 15000, 30000, 50000];
+  // ✅ User state
+  const [user, setUser] = useState(null);
 
-  const userEmail = "test@test.com"; // Replace with actual logged-in user
+  // 🎲 Balance & Guest Info
+  const [balance, setBalance] = useState(200);
+  const [guestName, setGuestName] = useState("");
+  const [guestId, setGuestId] = useState("");
 
-  const [balance, setBalance] = useState(0);
-
+  // Check if user is logged in
   useEffect(() => {
-    const fetchBalance = async () => {
-      const res = await fetch(`http://localhost:5000/api/get-user-balance/${userEmail}`);
-      const data = await res.json();
-      setBalance(data.balance);
-    };
-    fetchBalance();
+    const savedUser = localStorage.getItem("loggedInUser");
+    if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
-  const handleBuyCoins = async (amount) => {
-    try {
-      const res = await fetch("http://localhost:5000/api/create-easypaisa-transaction", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: userEmail, amount })
-      });
-      const data = await res.json();
+  // Initialize balance and guest info after login
+  useEffect(() => {
+    if (!user) return;
 
-      window.location.href = data.paymentUrl;
-
-      // Demo: confirm payment after 5s
-      setTimeout(async () => {
-        const confirmRes = await fetch("http://localhost:5000/api/confirm-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: userEmail })
-        });
-        const updated = await confirmRes.json();
-        setBalance(updated.balance);
-        alert(`Payment successful! ${amount} coins added.`);
-      }, 5000);
-
-    } catch (err) {
-      console.error(err);
-      alert("Payment failed!");
+    const savedBalance = localStorage.getItem("userBalance");
+    if (savedBalance) {
+      setBalance(parseInt(savedBalance, 10));
+    } else {
+      localStorage.setItem("userBalance", "200");
+      setBalance(200);
     }
-  };
 
+    let storedName = localStorage.getItem("guestName");
+    let storedId = localStorage.getItem("guestId");
+
+    if (!storedName || !storedId) {
+      const randomNum = Math.floor(1000000 + Math.random() * 9000000); // 7 digits
+      const randomId = Math.floor(10000000 + Math.random() * 90000000); // 8 digits
+      storedName = `Guest${randomNum}`;
+      storedId = `ID: ${randomId}`;
+      localStorage.setItem("guestName", storedName);
+      localStorage.setItem("guestId", storedId);
+    }
+
+    setGuestName(storedName);
+    setGuestId(storedId);
+  }, [user]);
+
+  // 🎮 Games array
   const games = [
     { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger" },
     { logo: "/zoo-roulette.png", name: "Zoo Roulette" },
+    { logo: "/car-roulette.png", name: "Car Roulette" },
+    { logo: "/fortune-gems.png", name: "Fortune Gems" },
+    { logo: "/9-coins.png", name: "9 Coins" },
+    { logo: "/rocket.png", name: "Rocket" },
+    { logo: "/7-thunder.png", name: "7 Thunder" },
+    { logo: "/777-classic.png", name: "777 Classic" },
+    { logo: "/baccarat.png", name: "Baccarat" },
+    { logo: "/up-down.png", name: "Up Down" },
+    { logo: "/mines.png", name: "Mines" },
+    { logo: "/rummy.png", name: "Rummy" },
   ];
 
-  const scrollLeft = () => contentRef.current?.scrollBy({ left: -500, behavior: 'smooth' });
-  const scrollRight = () => contentRef.current?.scrollBy({ left: 500, behavior: 'smooth' });
+  // 🔑 Show login if not logged in
+  if (!user) {
+    return <LoginCreateForm setUser={setUser} />;
+  }
 
   return (
     <div className="App">
+      {/* Top Bar */}
       <div className="top-bar">
-        <div className="top-profile">User | 💸 {balance}</div>
-        <div className="buy-coins">
-          Buy Coins
-          <div className="chips-dropdown">
-            {chips.map((chip, idx) => (
-              <div key={idx} className="chip" onClick={() => handleBuyCoins(chip)}>
-                {chip}
-              </div>
-            ))}
+        <div className="user-info">
+          <img src="/avatar.png" alt="Avatar" className="avatar" />
+          <div className="user-text">
+            <div className="guest-name">{guestName}</div>
+            <div className="guest-id">{guestId}</div>
           </div>
+        </div>
+        <div className="coins-section">
+          <div className="balance-box">💸 {balance}</div>
+          <button className="buy-coins">Buy Coins</button>
         </div>
       </div>
 
+      {/* Games */}
       <div className="content-wrapper">
-        <div className="arrow arrow-left" onClick={scrollLeft}>◀️</div>
         <div className="content" ref={contentRef}>
-          {games.map((game, idx) => (
-            <div key={idx} className="game-item">
-              <img src={game.logo} alt={game.name} className="game-logo" />
+          {games.map((game, index) => (
+            <div className="game-item" key={index}>
+              <img src={game.logo} alt={game.name} className="game-icon" />
               <div className="game-name">{game.name}</div>
             </div>
           ))}
         </div>
-        <div className="arrow arrow-right" onClick={scrollRight}>▶️</div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="bottom-bar">
+        <div className="bottom-option">💸 Withdraw</div>
+        <div className="bottom-option">📢 Promote</div>
+        <div className="bottom-option">🏆 Rankings</div>
+        <div className="bottom-option">📧 E-Mail</div>
+        <div className="bottom-option">🏦 Bank</div>
+        <div className="bottom-option">💎 VIP</div>
+        <div className="bottom-option">🎉 Events</div>
       </div>
     </div>
   );
