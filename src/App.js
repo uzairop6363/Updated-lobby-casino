@@ -35,8 +35,8 @@ function App() {
     let storedId = localStorage.getItem("guestId");
 
     if (!storedName || !storedId) {
-      const randomNum = Math.floor(1000000 + Math.random() * 9000000);
-      const randomId = Math.floor(10000000 + Math.random() * 90000000);
+      const randomNum = Math.floor(1000000 + Math.random() * 9000000); // 7 digits
+      const randomId = Math.floor(10000000 + Math.random() * 90000000); // 8 digits
       storedName = `Guest${randomNum}`;
       storedId = `ID: ${randomId}`;
       localStorage.setItem("guestName", storedName);
@@ -47,7 +47,7 @@ function App() {
     setGuestId(storedId);
   }, [user]);
 
-  // 🎮 Games
+  // 🎮 Games array
   const games = [
     { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger" },
     { logo: "/zoo-roulette.png", name: "Zoo Roulette" },
