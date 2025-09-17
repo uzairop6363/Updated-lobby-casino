@@ -1,18 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./App.css";
+import LoginCreateForm from "./LoginCreateForm";
 
 function App() {
   const contentRef = useRef(null);
 
-  // 🟢 Balance fixed at 200
-  const [balance, setBalance] = useState(200);
+  // ✅ User state
+  const [user, setUser] = useState(null);
 
-  // 🟢 User state (Guest name + ID)
+  useEffect(() => {
+    const savedUser = localStorage.getItem("loggedInUser");
+    if (savedUser) setUser(JSON.parse(savedUser));
+  }, []);
+
+  // 🎲 Balance & Guest Info (only if logged in)
+  const [balance, setBalance] = useState(200);
   const [guestName, setGuestName] = useState("");
   const [guestId, setGuestId] = useState("");
 
   useEffect(() => {
-    // Balance check
+    if (!user) return;
+
     const savedBalance = localStorage.getItem("userBalance");
     if (savedBalance) {
       setBalance(parseInt(savedBalance, 10));
@@ -21,7 +29,6 @@ function App() {
       setBalance(200);
     }
 
-    // Guest check
     let storedName = localStorage.getItem("guestName");
     let storedId = localStorage.getItem("guestId");
 
@@ -36,9 +43,9 @@ function App() {
 
     setGuestName(storedName);
     setGuestId(storedId);
-  }, []);
+  }, [user]);
 
-  // 🕹️ Games array
+  // 🎮 Games
   const games = [
     { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger" },
     { logo: "/zoo-roulette.png", name: "Zoo Roulette" },
@@ -54,11 +61,15 @@ function App() {
     { logo: "/rummy.png", name: "Rummy" },
   ];
 
+  // 🔑 Show login if not logged in
+  if (!user) {
+    return <LoginCreateForm setUser={setUser} />;
+  }
+
   return (
     <div className="App">
       {/* Top Bar */}
       <div className="top-bar">
-        {/* Avatar + Guest Info */}
         <div className="user-info">
           <img src="/avatar.png" alt="Avatar" className="avatar" />
           <div className="user-text">
@@ -66,15 +77,13 @@ function App() {
             <div className="guest-id">{guestId}</div>
           </div>
         </div>
-
-        {/* 💸 Balance Box */}
         <div className="coins-section">
           <div className="balance-box">💸 {balance}</div>
           <button className="buy-coins">Buy Coins</button>
         </div>
       </div>
 
-      {/* Horizontal Games */}
+      {/* Games */}
       <div className="content-wrapper">
         <div className="content" ref={contentRef}>
           {games.map((game, index) => (
