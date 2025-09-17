@@ -1,27 +1,30 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./App.css";
+import DragonVsTiger from "./components/DragonVsTiger";
 
 function App() {
   const contentRef = useRef(null);
 
-  // 🟢 Balance fixed at 200
+  // User balance
   const [balance, setBalance] = useState(200);
 
-  // 🟢 User state (Guest name + ID)
+  // Guest info
   const [guestName, setGuestName] = useState("");
   const [guestId, setGuestId] = useState("");
 
+  // Dragon vs Tiger overlay
+  const [showDragonTiger, setShowDragonTiger] = useState(false);
+
   useEffect(() => {
-    // Balance check
+    // Load balance
     const savedBalance = localStorage.getItem("userBalance");
-    if (savedBalance) {
-      setBalance(parseInt(savedBalance, 10));
-    } else {
+    if (savedBalance) setBalance(parseInt(savedBalance, 10));
+    else {
       localStorage.setItem("userBalance", "200");
       setBalance(200);
     }
 
-    // Guest check
+    // Load guest info
     let storedName = localStorage.getItem("guestName");
     let storedId = localStorage.getItem("guestId");
 
@@ -38,7 +41,7 @@ function App() {
     setGuestId(storedId);
   }, []);
 
-  // 🕹️ Games array
+  // Games array
   const games = [
     { logo: "/dragon-vs-tiger.png", name: "Dragon vs Tiger" },
     { logo: "/zoo-roulette.png", name: "Zoo Roulette" },
@@ -58,7 +61,6 @@ function App() {
     <div className="App">
       {/* Top Bar */}
       <div className="top-bar">
-        {/* Avatar + Guest Info */}
         <div className="user-info">
           <img src="/avatar.png" alt="Avatar" className="avatar" />
           <div className="user-text">
@@ -67,18 +69,23 @@ function App() {
           </div>
         </div>
 
-        {/* 💸 Balance Box */}
         <div className="coins-section">
           <div className="balance-box">💸 {balance}</div>
           <button className="buy-coins">Buy Coins</button>
         </div>
       </div>
 
-      {/* Horizontal Games */}
+      {/* Games Content */}
       <div className="content-wrapper">
         <div className="content" ref={contentRef}>
           {games.map((game, index) => (
-            <div className="game-item" key={index}>
+            <div
+              className="game-item"
+              key={index}
+              onClick={() => {
+                if (game.name === "Dragon vs Tiger") setShowDragonTiger(true);
+              }}
+            >
               <img src={game.logo} alt={game.name} className="game-icon" />
               <div className="game-name">{game.name}</div>
             </div>
@@ -96,6 +103,15 @@ function App() {
         <div className="bottom-option">💎 VIP</div>
         <div className="bottom-option">🎉 Events</div>
       </div>
+
+      {/* Dragon vs Tiger Game Overlay */}
+      {showDragonTiger && (
+        <DragonVsTiger
+          balance={balance}
+          setBalance={setBalance}
+          onClose={() => setShowDragonTiger(false)}
+        />
+      )}
     </div>
   );
 }
