@@ -1,4 +1,6 @@
-/* Luxury Full Background */
+/* =========================
+   Luxury Full Background
+========================= */
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -16,7 +18,9 @@ html, body, #root {
   100% { background-position: 0% 50%; }
 }
 
-/* Top Bar */
+/* =========================
+   Top Bar
+========================= */
 .top-bar {
   position: fixed;
   top: 0;
@@ -33,7 +37,7 @@ html, body, #root {
   border-bottom: 2px solid gold;
 }
 
-/* User Info (Avatar + Guest) */
+/* User Info */
 .user-info {
   display: flex;
   align-items: center;
@@ -71,7 +75,6 @@ html, body, #root {
   gap: 10px;
 }
 
-/* Buy Coins Button */
 .buy-coins {
   background: linear-gradient(90deg, #ffd700, #ffec00);
   color: #000;
@@ -87,7 +90,6 @@ html, body, #root {
   transform: scale(1.1);
 }
 
-/* Balance Box (Green) */
 .balance-box {
   background: green;
   color: white;
@@ -99,7 +101,9 @@ html, body, #root {
   box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }
 
-/* Game Content */
+/* =========================
+   Game Content
+========================= */
 .content-wrapper {
   padding-top: 90px;
   padding-bottom: 70px;
@@ -114,7 +118,6 @@ html, body, #root {
   padding: 20px;
 }
 
-/* Game Card */
 .game-item {
   background: linear-gradient(145deg, #222, #111);
   border: 2px solid gold;
@@ -149,7 +152,9 @@ html, body, #root {
   margin-bottom: 5px;
 }
 
-/* Bottom Bar */
+/* =========================
+   Bottom Bar
+========================= */
 .bottom-bar {
   position: fixed;
   bottom: 0;
@@ -186,4 +191,90 @@ html, body, #root {
 .bottom-option:hover {
   transform: scale(1.05);
   background-color: #333;
+}
+
+/* =========================
+   Login / Create Account Page
+========================= */
+.login-container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, gold, cyan, purple);
+}
+
+.anime-girl {
+  width: 300px;
+  height: 500px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  animation: float 6s ease-in-out infinite;
+  margin-right: 50px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.login-form {
+  background: rgba(0,0,0,0.75);
+  padding: 40px;
+  border-radius: 15px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: gold;
+}
+
+.login-form input {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid gold;
+  outline: none;
+  background: #111;
+  color: white;
+}
+
+.login-form input:focus {
+  border-color: cyan;
+}
+
+.login-form button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg, gold, orange);
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-form button:hover {
+  transform: scale(1.05);
+}
+
+.message {
+  margin-top: 10px;
+  color: limegreen;
+  text-align: center;
+}
+
+.toggle {
+  margin-top: 15px;
+  color: cyan;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: underline;
 }
