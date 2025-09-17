@@ -4,10 +4,15 @@ import "./App.css";
 function App() {
   const contentRef = useRef(null);
 
-  // 🟢 Balance State (fixed 200 for now)
+  // 🟢 Balance fixed at 200
   const [balance, setBalance] = useState(200);
 
+  // 🟢 User state (Guest name + ID)
+  const [guestName, setGuestName] = useState("");
+  const [guestId, setGuestId] = useState("");
+
   useEffect(() => {
+    // Balance check
     const savedBalance = localStorage.getItem("userBalance");
     if (savedBalance) {
       setBalance(parseInt(savedBalance, 10));
@@ -15,6 +20,22 @@ function App() {
       localStorage.setItem("userBalance", "200");
       setBalance(200);
     }
+
+    // Guest check
+    let storedName = localStorage.getItem("guestName");
+    let storedId = localStorage.getItem("guestId");
+
+    if (!storedName || !storedId) {
+      const randomNum = Math.floor(1000000 + Math.random() * 9000000); // 7 digits
+      const randomId = Math.floor(10000000 + Math.random() * 90000000); // 8 digits
+      storedName = `Guest${randomNum}`;
+      storedId = `ID: ${randomId}`;
+      localStorage.setItem("guestName", storedName);
+      localStorage.setItem("guestId", storedId);
+    }
+
+    setGuestName(storedName);
+    setGuestId(storedId);
   }, []);
 
   // 🕹️ Games array
@@ -37,11 +58,19 @@ function App() {
     <div className="App">
       {/* Top Bar */}
       <div className="top-bar">
-        <div className="top-profile">Profile</div>
+        {/* Avatar + Guest Info */}
+        <div className="user-info">
+          <img src="/avatar.png" alt="Avatar" className="avatar" />
+          <div className="user-text">
+            <div className="guest-name">{guestName}</div>
+            <div className="guest-id">{guestId}</div>
+          </div>
+        </div>
 
+        {/* 💸 Balance Box */}
         <div className="coins-section">
-          <button className="buy-coins">Buy Coins</button>
           <div className="balance-box">💸 {balance}</div>
+          <button className="buy-coins">Buy Coins</button>
         </div>
       </div>
 
